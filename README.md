@@ -1,5 +1,9 @@
 # mica-sherpa-onnx
 
+![JDK 8](https://img.shields.io/badge/JDK-8+-brightgreen.svg)
+[![Mica Maven release](https://img.shields.io/maven-central/v/net.dreamlu/mica-sherpa-onnx.svg?style=flat-square)](https://central.sonatype.com/artifact/net.dreamlu/mica-sherpa-onnx/versions)
+![Mica Maven SNAPSHOT](https://img.shields.io/maven-metadata/v?metadataUrl=https://central.sonatype.com/repository/maven-snapshots/net/dreamlu/mica-sherpa-onnx/maven-metadata.xml)
+
 将 [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) 的 Java 绑定（java-api）与各平台预编译 native 库打包为一个 **fat jar**，通过 Central Portal 发布到 Maven Central。
 
 ## 特性

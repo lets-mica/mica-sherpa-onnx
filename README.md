@@ -25,12 +25,12 @@
 <dependency>
     <groupId>net.dreamlu</groupId>
     <artifactId>mica-sherpa-onnx</artifactId>
-    <version>1.13.5</version>
+    <version>1.13.6</version>
 </dependency>
 ```
 
 ```kotlin
-implementation("net.dreamlu:mica-sherpa-onnx:1.13.5")
+implementation("net.dreamlu:mica-sherpa-onnx:1.13.6")
 ```
 
 ## 环境要求

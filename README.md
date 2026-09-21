@@ -49,7 +49,7 @@ mica-sherpa-onnx/
 ├── gradlew / gradlew.bat        # Gradle Wrapper 脚本
 ├── gradle/wrapper/              # Gradle Wrapper jar + properties
 └── src/main/java/
-    └── com/k2fsa/sherpa/onnx/   # sherpa-onnx Java API 源码 (101 个文件)
+    └── com/k2fsa/sherpa/onnx/   # sherpa-onnx Java API 源码 (102 个文件)
 ```
 
 ## 构建命令
@@ -60,7 +60,7 @@ mica-sherpa-onnx/
 ./gradlew build
 ```
 
-构建产物 `build/libs/mica-sherpa-onnx-1.13.5.jar` 同时包含：
+构建产物 `build/libs/mica-sherpa-onnx-1.13.8.jar` 同时包含：
 - 编译后的 Java 类
 - 所有平台 native 库（路径: `sherpa-onnx/native/{platform}/`）
 

@@ -32,6 +32,36 @@
 implementation("net.dreamlu:mica-sherpa-onnx:${version}")
 ```
 
+## 版本对照
+
+本项目的版本号与 [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx) 的 release 版本号保持一致，Java 源码与对应 tag 的 `sherpa-onnx/java-api` 逐字节相同，native 库取自该 tag 的 Release 资产。
+
+| mica-sherpa-onnx | sherpa-onnx | 说明 |
+|---|---|---|
+| 2.0.0 | v2.0.0 | 移除 espeak-ng / piper-phonemize，TTS 音素输入改由 `GenerationConfig` 提供 |
+| 1.13.8 | v1.13.8 | 新增离线 CTC HLG 图解码 |
+| 1.13.7 | v1.13.7 | |
+| 1.13.6 | v1.13.6 | |
+
+## 升级到 2.0.0 的破坏性变更
+
+上游在 v2.0.0 移除了 espeak-ng 和 piper-phonemize，TTS 相关的 Java API 因此有若干**不兼容变更**，升级前请对照检查：
+
+| 变更 | 影响 | 迁移方式 |
+|---|---|---|
+| `SpeechSegment.getStart()` 返回类型 `int` → `long` | 编译期不兼容 | 接收方变量改为 `long`；时间戳超 `Integer.MAX_VALUE` 毫秒（约 24.8 天）不再溢出 |
+| `OfflineTtsVitsModelConfig` 等 TTS 配置的 `dataDir` / `setDataDir()` 标记 `@Deprecated` | 运行时**被忽略** | 改用 `setLexicon(...)`，或通过 `GenerationConfig.setPhonemeCodepoints(...)` 直接传音素 |
+| 新增 `GenerationConfig.setPhonemeCodepoints(int[][])` / `setTokens(String[][])` | 新能力 | 自行做音素化（如 pypinyin）后传入，绕开内置 espeak |
+| `OfflineTtsModelConfig.debug` 默认值 `true` → `false` | 行为变化 | 需要日志时显式 `setDebug(true)` |
+| 新增 `OfflineTts.getLang()`、`generateWithConfig(String, GenerationConfig)` | 新能力 | 可直接获取模型语言（如 `"en-us"`），并在无文本（纯音素）场景下合成 |
+
+```java
+// 2.0.0 推荐的纯音素（无 espeak）合成方式
+GenerationConfig config = new GenerationConfig();
+config.setPhonemeCodepoints(new int[][]{{104, 101, 108, 108, 111}}); // "hello"
+GeneratedAudio audio = tts.generateWithConfig("", config);
+```
+
 ## 环境要求
 
 - JDK 8+
@@ -60,7 +90,7 @@ mica-sherpa-onnx/
 ./gradlew build
 ```
 
-构建产物 `build/libs/mica-sherpa-onnx-1.13.8.jar` 同时包含：
+构建产物 `build/libs/mica-sherpa-onnx-2.0.0.jar` 同时包含：
 - 编译后的 Java 类
 - 所有平台 native 库（路径: `sherpa-onnx/native/{platform}/`）
 
